@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "813669440546",
+    "firebase_url": "https://artifact-acf45.firebaseio.com",
+    "project_id": "artifact-acf45",
+    "storage_bucket": "artifact-acf45.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813669440546:android:1d99cd8917658ab6dd3e7b",
+        "android_client_info": {
+          "package_name": "com.example.artifact"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813669440546-7to6tecq0ehjs5j15vp4h3oc7qrnj9jt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.artifact",
+            "certificate_hash": "c2d00536df706fba953bac95547628823c9dd863"
+          }
+        },
+        {
+          "client_id": "813669440546-f62h51603n5go7e4bhrvpud3qhv1dklg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAro_GWBfnxa5hFcWmExvhafpRjs0VahVE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813669440546-f62h51603n5go7e4bhrvpud3qhv1dklg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
