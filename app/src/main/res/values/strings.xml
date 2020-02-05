@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">Artifact</string>
-    <string name="settings">Settings</string>
-    <string name="connection">Connection</string>
-    <string name="messages">Messages</string>
-    <string name="find_artist">Find Artist</string>
+    <string name="app_name">Art Digger</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
 </resources>
