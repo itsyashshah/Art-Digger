@@ -2,4 +2,7 @@
     <string name="app_name">Art Digger</string>
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
+
+    <string name="facebook_application_id" translatable="false">169042061195498</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb169042061195498</string>
 </resources>
