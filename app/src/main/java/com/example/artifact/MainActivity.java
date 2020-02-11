@@ -8,12 +8,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,11 +25,16 @@ public class MainActivity extends AppCompatActivity {
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private RecyclerView postList;
     private Toolbar mToolbar;
+    private FirebaseAuth mAuth; //firebase authentication
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        mAuth = FirebaseAuth.getInstance();
 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
@@ -54,6 +62,27 @@ public class MainActivity extends AppCompatActivity {
      }
 
 
+     //checking the user criteria on login
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser == null) {
+            SendUserToLoginActivity();
+        }
+    }
+
+//    login activity method
+    private void SendUserToLoginActivity() {
+
+        Intent loginIntent = new Intent(MainActivity.this, loginactivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+        finish();
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item)
     {
@@ -76,8 +105,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
                 break;
 
-            case R.id.nav_connection:
-                Toast.makeText(this, "Connection", Toast.LENGTH_SHORT).show();
+            case R.id.nav_logout:
+                mAuth.signOut();
+                SendUserToLoginActivity();
                 break;
         }
     }
