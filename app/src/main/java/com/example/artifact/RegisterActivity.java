@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -25,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
 
+//    OnCreate Method
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,21 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+//    On start Method (working fine)
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            SendUserToMainActivity();
+        }
+    }
+
+
+
+
+//   Method to Create a new account
     private void CreateNewAccount() {
 
         String email = UserEmail.getText().toString();
@@ -102,6 +119,18 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    //  Method to Send User to Main Activity (working fine)
+    private void SendUserToMainActivity() {
+
+        Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
+        mainIntent.addFlags((Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+        startActivity(mainIntent);
+        finish();
+
+    }
+
+
+// Method to Send User to Setup Activity (working fine)
     private void SendUserToSetupActivity() {
         Intent setupIntent = new Intent(RegisterActivity.this, SetupActivity.class);
         setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

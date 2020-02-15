@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class loginactivity extends AppCompatActivity {
 
@@ -28,6 +29,7 @@ public class loginactivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+//    On Create Method
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +63,21 @@ public class loginactivity extends AppCompatActivity {
 
     }
 
+//    On Start Method
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser != null) {
+            SendUserToMainActivity();
+        }
+
+
+    }
+
+//    Login method while having certain Validations
     private void AllowingUserToLogin()
     {
         String email = UserEmail.getText().toString();
@@ -105,12 +122,14 @@ public class loginactivity extends AppCompatActivity {
 
     }
 
+//    Method to Send User to Register Activity
     private void SendUserToRegisterActivity() {
 
         Intent registerIntent = new Intent(loginactivity.this, RegisterActivity.class);
         startActivity(registerIntent);
     }
 
+//    Method to Send User To Main Activity
     private void SendUserToMainActivity() {
 
         Intent mainIntent = new Intent(loginactivity.this, MainActivity.class);
