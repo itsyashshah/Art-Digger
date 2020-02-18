@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CircleImageView NavProfileImage;
     private TextView NavProfileName;
+    private ImageButton AddNewPostButton;
 
     String CurrentUserID;
 
@@ -58,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Home");
+
+        AddNewPostButton = (ImageButton) findViewById(R.id.post_button);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -112,6 +116,15 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        AddNewPostButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SendUserToPostActivity();
+
+            }
+        });
      }
 
 
@@ -128,6 +141,13 @@ public class MainActivity extends AppCompatActivity {
         else {
             CheckUserExistence();
         }
+    }
+
+
+    private void SendUserToPostActivity()
+    {
+        Intent addNewPostIntent = new Intent(MainActivity.this, PostActivity.class);
+        startActivity(addNewPostIntent);
     }
 
 
@@ -187,6 +207,10 @@ public class MainActivity extends AppCompatActivity {
     {
         switch (menuItem.getItemId())
         {
+            case R.id.nav_Post:
+                SendUserToPostActivity();
+                break;
+
             case R.id.nav_profile:
                 Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
                 break;

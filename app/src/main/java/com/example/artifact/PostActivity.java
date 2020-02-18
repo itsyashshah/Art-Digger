@@ -80,16 +80,11 @@ public class PostActivity extends AppCompatActivity {
 
         Description = PostDescription.getText().toString();
 
-        if(ImageUri == null)
-        {
+        if (ImageUri == null) {
             Toast.makeText(this, "Please select post image", Toast.LENGTH_SHORT).show();
-        }
-        else if(TextUtils.isEmpty(Description))
-        {
+        } else if (TextUtils.isEmpty(Description)) {
             Toast.makeText(this, "Please say something about your image...", Toast.LENGTH_SHORT).show();
-        }
-        else
-        {
+        } else {
 //            loadingBar.setTitle("Add New Post");
 //            loadingBar.setMessage("Please wait, while we are updating your new post...");
 //            loadingBar.show();
@@ -118,16 +113,13 @@ public class PostActivity extends AppCompatActivity {
         filepath.putFile(ImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if(task.isSuccessful())
-                {
+                if (task.isSuccessful()) {
 //                    downloadUrl = task.getResult().getDownloadUrl().toString();
                     Toast.makeText(PostActivity.this, "image uploaded successfully to Storage...", Toast.LENGTH_SHORT).show();
 
 //                    SavingPostInformationToDatabase();
 
-                }
-                else
-                {
+                } else {
                     String message = task.getException().getMessage();
                     Toast.makeText(PostActivity.this, "Error occured: " + message, Toast.LENGTH_SHORT).show();
                 }
@@ -151,8 +143,7 @@ public class PostActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(requestCode==Gallery_Pick && resultCode==RESULT_OK && data!=null)
-        {
+        if (requestCode == Gallery_Pick && resultCode == RESULT_OK && data != null) {
             ImageUri = data.getData();
             SelecPostImage.setImageURI(ImageUri);
 
@@ -165,8 +156,7 @@ public class PostActivity extends AppCompatActivity {
 
         int id = item.getItemId();
 
-        if(id == android.R.id.home)
-        {
+        if (id == android.R.id.home) {
             SendUserToMainActivity();
         }
         return super.onOptionsItemSelected(item);
@@ -174,7 +164,7 @@ public class PostActivity extends AppCompatActivity {
 
     private void SendUserToMainActivity() {
 
-        Intent mainIntent = new Intent(PostActivity.this,MainActivity.class);
+        Intent mainIntent = new Intent(PostActivity.this, MainActivity.class);
         startActivity(mainIntent);
     }
 }
