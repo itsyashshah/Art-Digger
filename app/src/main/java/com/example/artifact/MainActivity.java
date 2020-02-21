@@ -5,17 +5,24 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView postList;
     private Toolbar mToolbar;
     private FirebaseAuth mAuth; //firebase authentication
-    private DatabaseReference UsersRef;
+    private DatabaseReference UsersRef, PostsRef;
 
     private CircleImageView NavProfileImage;
     private TextView NavProfileName;
@@ -52,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
         CurrentUserID = mAuth.getCurrentUser().getUid();
 
 
@@ -60,6 +68,14 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("Home");
+
+        postList = (RecyclerView) findViewById(R.id.all_users_post_list);
+        postList.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        postList.setLayoutManager(linearLayoutManager);
+
 
         AddNewPostButton = (ImageButton) findViewById(R.id.post_button);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
@@ -125,10 +141,54 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        DisplayAllUserPost();
      }
 
+    private void DisplayAllUserPost() {
+        FirebaseRecyclerOptions<Posts> options=new FirebaseRecyclerOptions.Builder<Posts>().setQuery(PostsRef,Posts.class).build();
+        FirebaseRecyclerAdapter<Posts, PostsViewHolder> firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Posts, PostsViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull PostsViewHolder holder, int position, @NonNull Posts model) {
+                holder.username.setText(model.getFullname());
+                holder.time.setText(" " +model.getTime());
+                holder.date.setText(" "+model.getDate());
+                holder.description.setText(model.getDescription());
+                Picasso.get().load(model.getProfileimage()).into(holder.user_post_image);
+                Picasso.get().load(model.getPostimage()).into(holder.postImage);
 
-     //checking the user criteria on login
+            }
+
+            @NonNull
+            @Override
+            public PostsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.all_post_layout,parent,false);
+                PostsViewHolder viewHolder=new PostsViewHolder(view);
+                return viewHolder;
+            }
+        };
+        postList.setAdapter(firebaseRecyclerAdapter);
+        firebaseRecyclerAdapter.startListening();
+    }
+    public static class PostsViewHolder extends RecyclerView.ViewHolder{
+        TextView username,date,time,description;
+        CircleImageView user_post_image;
+        ImageView postImage;
+        public PostsViewHolder(View itemView) {
+            super(itemView);
+
+            username=itemView.findViewById(R.id.post_user_name);
+            date=itemView.findViewById(R.id.post_date);
+            time=itemView.findViewById(R.id.post_time);
+            description=itemView.findViewById(R.id.post_description);
+            postImage=itemView.findViewById(R.id.post_image);
+            user_post_image=itemView.findViewById(R.id.post_profile_image);
+        }
+
+    }
+
+
+    //checking the user criteria on login
     @Override
     protected void onStart() {
         super.onStart();
