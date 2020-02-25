@@ -251,6 +251,14 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    private void SendUserToSettingsActivity() {
+
+        Intent loginIntent = new Intent(MainActivity.this, SettingsActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+        finish();
+    }
+
 
 //    Navigation Bar
     @Override
@@ -279,10 +287,16 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
                 break;
 
+            case R.id.nav_settings:
+                SendUserToSettingsActivity();
+                break;
+
+
             case R.id.nav_logout:
                 mAuth.signOut();
                 SendUserToLoginActivity();
                 break;
+
         }
     }
 }

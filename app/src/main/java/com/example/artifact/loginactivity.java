@@ -184,7 +184,7 @@ public class loginactivity extends AppCompatActivity {
     }
 
 //    Login method while having certain Validations
-    private void AllowingUserToLogin()
+    public void AllowingUserToLogin()
     {
         String email = UserEmail.getText().toString();
         String password = UserPassword.getText().toString();
