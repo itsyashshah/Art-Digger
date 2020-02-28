@@ -191,6 +191,7 @@ public class loginactivity extends AppCompatActivity {
 
         if(TextUtils.isEmpty(email))
         {
+            UserEmail.setError("Please Enter Your Email");
             Toast.makeText(this,"Please Enter Your Email", Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(password))
@@ -217,7 +218,8 @@ public class loginactivity extends AppCompatActivity {
                             else
                             {
                                 String message =task.getException().getMessage();
-                                Toast.makeText(loginactivity.this,"Error:" +message, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(loginactivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                                Log.d("Login Error", message);
                                 loadingBar.dismiss();
 
                             }
