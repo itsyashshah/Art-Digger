@@ -247,13 +247,13 @@ public class loginactivity extends AppCompatActivity {
 
     }
 
-    private void SendUserToLoginActivity() {
-
-        Intent mainIntent = new Intent(loginactivity.this, loginactivity.class);
-        mainIntent.addFlags((Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-        startActivity(mainIntent);
-        finish();
-    }
+//    private void SendUserToLoginActivity() {
+//
+//        Intent mainIntent = new Intent(loginactivity.this, loginactivity.class);
+//        mainIntent.addFlags((Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+//        startActivity(mainIntent);
+//        finish();
+//    }
 
 }
 
