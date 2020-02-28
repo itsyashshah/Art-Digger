@@ -139,8 +139,8 @@ public class SetupActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 loadingbar.setTitle("Profile Image");
                 loadingbar.setMessage("Please wait, while we updating your profile image");
-                loadingbar.show();
                 loadingbar.setCanceledOnTouchOutside(true);
+                loadingbar.show();
 
                 Uri resultUri = result.getUri();
 
@@ -204,7 +204,6 @@ public class SetupActivity extends AppCompatActivity {
         {
             Toast.makeText(this, "Full name cannot be empty", Toast.LENGTH_SHORT).show();
         }
-
 
         if(TextUtils.isEmpty(country))
         {
