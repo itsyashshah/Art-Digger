@@ -253,9 +253,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void SendUserToSettingsActivity() {
 
-        Intent loginIntent = new Intent(MainActivity.this, SettingsActivity.class);
-        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(loginIntent);
+        Intent settingActivityIntent = new Intent(MainActivity.this, SettingsActivity.class);
+        settingActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(settingActivityIntent);
+        finish();
+    }
+
+    private void SendUserToProfileActivity() {
+
+        Intent profileActivityIntent = new Intent(MainActivity.this, ProfileActivity.class);
+        profileActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(profileActivityIntent);
         finish();
     }
 
@@ -280,6 +288,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_profile:
+                SendUserToProfileActivity();
                 Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
                 break;
 

@@ -33,8 +33,6 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import org.w3c.dom.Text;
-
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -43,7 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
 
-    private EditText userName, userprofname, userstatus, usercountry, usergender, userdob;
+    private EditText userName, userProfName, userStatus, userCountry, userGender, userDob;
     private Button UpdateAccountSettingsButton;
     private ProgressDialog loadingbar;
 
@@ -71,11 +69,11 @@ public class SettingsActivity extends AppCompatActivity {
         SettingsuserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
 
         userName = (EditText) findViewById(R.id.settings_username);
-        userprofname = (EditText) findViewById(R.id.settings_fullname);
-        userstatus = (EditText) findViewById(R.id.settings_status);
-        usercountry = (EditText) findViewById(R.id.settings_country);
-        usergender = (EditText) findViewById(R.id.settings_gender);
-        userdob = (EditText) findViewById(R.id.settings_dob);
+        userProfName = (EditText) findViewById(R.id.settings_fullname);
+        userStatus = (EditText) findViewById(R.id.settings_status);
+        userCountry = (EditText) findViewById(R.id.settings_country);
+        userGender = (EditText) findViewById(R.id.settings_gender);
+        userDob = (EditText) findViewById(R.id.settings_dob);
         loadingbar = new ProgressDialog(this);
         UserProfileImageRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
         userProfImage = (CircleImageView) findViewById(R.id.settings_profile_image);
@@ -98,11 +96,11 @@ public class SettingsActivity extends AppCompatActivity {
 
                     Picasso.get().load(myProfileImage).placeholder(R.drawable.profile).into(userProfImage);
                     userName.setText(username);
-                    userprofname.setText(userfullname);
-                    userdob.setText(userDob);
-                    userstatus.setText(status);
-                    usercountry.setText(userCountry);
-                    usergender.setText(userGender);
+                    userProfName.setText(userfullname);
+                    SettingsActivity.this.userDob.setText(userDob);
+                    userStatus.setText(status);
+                    SettingsActivity.this.userCountry.setText(userCountry);
+                    SettingsActivity.this.userGender.setText(userGender);
 
                 }
 
@@ -207,11 +205,11 @@ public class SettingsActivity extends AppCompatActivity {
     private void ValidateAccountInfo() {
 
         String username = userName.getText().toString();
-        String profilename = userprofname.getText().toString();
-        String dob = userdob.getText().toString();
-        String country = usercountry.getText().toString();
-        String gender = usergender.getText().toString();
-        String status = userstatus.getText().toString();
+        String profilename = userProfName.getText().toString();
+        String dob = userDob.getText().toString();
+        String country = userCountry.getText().toString();
+        String gender = userGender.getText().toString();
+        String status = userStatus.getText().toString();
 
         if (TextUtils.isEmpty(username)) {
             Toast.makeText(this, "Please write your Username.", Toast.LENGTH_SHORT).show();
