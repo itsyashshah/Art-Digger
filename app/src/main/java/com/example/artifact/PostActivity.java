@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,10 +18,11 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
-
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,7 +42,8 @@ public class PostActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private ImageButton SelecPostImage;
     private Button UpdatePostButton;
-    private EditText PostDescription;
+    private TextInputEditText PostDescription;
+    private TextInputLayout PostLayout;
 
     private static final int Gallery_Pick = 1;
     private Uri ImageUri;
@@ -67,7 +70,8 @@ public class PostActivity extends AppCompatActivity {
 
         SelecPostImage = (ImageButton) findViewById(R.id.select_post_image);
         UpdatePostButton = (Button) findViewById(R.id.post_button);
-        PostDescription = (EditText) findViewById(R.id.post_description);
+        PostDescription = (TextInputEditText) findViewById(R.id.post_description);
+        PostLayout = (TextInputLayout) findViewById(R.id.outlinedTextField);
         loadingBar = new ProgressDialog(this);
 
         mToolbar = (Toolbar) findViewById(R.id.update_post_toolbar);
@@ -100,7 +104,8 @@ public class PostActivity extends AppCompatActivity {
         if (ImageUri == null) {
             Toast.makeText(this, "Please select post image", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(Description)) {
-            Toast.makeText(this, "Please say something about your image...", Toast.LENGTH_SHORT).show();
+            PostLayout.setError("Required");
+            PostDescription.setError("Required");
         } else {
             loadingBar.setTitle("Adding Your Post");
             loadingBar.setMessage("Please wait, while we are creating your new post...");
@@ -244,6 +249,8 @@ public class PostActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
+        Log.d("error", String.valueOf(id));
+        Log.d("android id",String.valueOf(android.R.id.home));
 
         if (id == android.R.id.home) {
             SendUserToMainActivity();

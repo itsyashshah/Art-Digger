@@ -23,6 +23,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,8 +35,9 @@ import com.google.firebase.database.core.Tag;
 public class loginactivity extends AppCompatActivity {
 
     private Button LoginButton;
-    private EditText UserEmail, UserPassword;
-    private TextView NeedAccount;
+    private TextInputEditText UserEmail, UserPassword;
+    private TextInputLayout emaillayout, passwordlayout;
+    private TextView NeedAccount, ForgetPassword;
     private ProgressDialog loadingBar;
     private ImageView googlesigninbutton;
     private static final int RC_SIGN_IN =1;
@@ -50,10 +53,13 @@ public class loginactivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loginactivity);
 
+        emaillayout = (TextInputLayout) findViewById(R.id.login_email_layout);
+        passwordlayout = (TextInputLayout) findViewById(R.id.login_password_layout);
         NeedAccount = (TextView) findViewById(R.id.need_account);
-        UserEmail = (EditText) findViewById(R.id.login_email);
-        UserPassword = (EditText) findViewById(R.id.login_password);
+        UserEmail = (TextInputEditText) findViewById(R.id.login_email);
+        UserPassword = (TextInputEditText) findViewById(R.id.login_password);
         LoginButton = (Button) findViewById(R.id.login_button);
+        ForgetPassword = (TextView) findViewById(R.id.forgot_password_link);
         googlesigninbutton  = (ImageView) findViewById(R.id.google_signin_button);
         loadingBar = new ProgressDialog(this);
 
@@ -67,6 +73,13 @@ public class loginactivity extends AppCompatActivity {
             {
 
                 SendUserToRegisterActivity();
+            }
+        });
+
+        ForgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(loginactivity.this, ResetPasswordActivity.class));
             }
         });
 
@@ -191,12 +204,13 @@ public class loginactivity extends AppCompatActivity {
 
         if(TextUtils.isEmpty(email))
         {
-            UserEmail.setError("Please Enter Your Email");
-            Toast.makeText(this,"Please Enter Your Email", Toast.LENGTH_SHORT).show();
+            emaillayout.setError("Please Enter Your Email");
+            UserEmail.setError("Required");
         }
         else if(TextUtils.isEmpty(password))
         {
-            Toast.makeText(this,"Please Enter Your Password", Toast.LENGTH_SHORT).show();
+            passwordlayout.setError("Please Enter Your Password");
+            UserPassword.setError("Required");
         }
         else
         {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AFEEEE"
+    android:background="@color/themebackgroud"
     tools:context=".PostActivity">
 
     <include
@@ -24,24 +24,36 @@
         android:scaleType="fitCenter"
         android:src="@drawable/select_image"/>
 
-    <EditText
-        android:id="@+id/post_description"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlinedTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/select_post_image"
         android:layout_marginTop="40dp"
-        android:background="@drawable/inputs"
         android:ems="10"
-        android:gravity="start|top"
-        android:hint="Write about your post here."
-        android:inputType="textMultiLine"
-        android:padding="15dp" />
+        app:counterEnabled="true"
+        app:counterMaxLength="50"
+        app:helperTextEnabled="true"
+        app:helperText="Required"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:hint="Description"
+        app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Light.Hint"
+        android:textColorHint="@color/colorPrimaryDark"
+        app:boxStrokeColor="@color/colorProfile"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/post_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/post_button"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/post_description"
+        android:layout_below="@+id/outlinedTextField"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="106dp"
@@ -49,6 +61,7 @@
         android:padding="10dp"
         android:text="Post"
         android:textSize="18sp" />
+
 
 
 </RelativeLayout>
