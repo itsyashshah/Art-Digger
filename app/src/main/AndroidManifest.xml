@@ -15,11 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".ResetPasswordActivity"
+        <activity android:name=".PersonProfileActivity"></activity>
+        <activity
+            android:name=".ResetPasswordActivity"
             android:parentActivityName=".loginactivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".FindArtistActivity"
             android:parentActivityName=".MainActivity"

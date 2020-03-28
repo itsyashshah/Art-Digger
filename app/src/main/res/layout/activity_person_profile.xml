@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorProfile"
-    tools:context=".ProfileActivity">
+    tools:context=".PersonProfileActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:layout_height="match_parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
+                android:id="@+id/person_profile_image"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:layout_alignParentTop="true"
@@ -30,7 +30,7 @@
                 android:id="@+id/profile_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/profile_image"
+                android:layout_below="@+id/person_profile_image"
                 android:layout_marginTop="15dp"
                 android:text="Profile Name "
                 android:textAlignment="center"
@@ -39,7 +39,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/user_name"
+                android:id="@+id/person_profile_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/profile_name"
@@ -50,10 +50,10 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/user_status"
+                android:id="@+id/person_profile_user_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/user_name"
+                android:layout_below="@+id/person_profile_user_name"
                 android:layout_marginTop="5dp"
                 android:text="This is a example Status."
                 android:textAlignment="center"
@@ -61,10 +61,10 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/user_country"
+                android:id="@+id/person_profile_user_country"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/user_status"
+                android:layout_below="@+id/person_profile_user_status"
                 android:layout_marginTop="5dp"
                 android:text="Country Canada "
                 android:textAlignment="center"
@@ -72,10 +72,10 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/user_dob"
+                android:id="@+id/person_profile_user_dob"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/user_country"
+                android:layout_below="@+id/person_profile_user_country"
                 android:layout_marginTop="5dp"
                 android:text="Dob "
                 android:textAlignment="center"
@@ -83,17 +83,39 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/user_gender"
+                android:id="@+id/person_profile_user_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/user_dob"
+                android:layout_below="@+id/person_profile_user_dob"
                 android:layout_marginTop="5dp"
                 android:text="Male/Female "
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
-
+            
+            <Button
+                android:id="@+id/person_profile_send_friend_request_btn"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/person_profile_user_gender"
+                android:layout_marginTop="45dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="Send Connection"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_centerHorizontal="true"/>
+            <Button
+                android:id="@+id/person_profile_send_decline_request_btn"
+                android:layout_width="230dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/person_profile_send_friend_request_btn"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/holo_red_dark"
+                android:text="Decline Connection"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:layout_centerHorizontal="true"/>
+            
         </RelativeLayout>
     </ScrollView>
-
 </RelativeLayout>

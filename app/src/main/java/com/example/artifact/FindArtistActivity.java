@@ -3,6 +3,7 @@ package com.example.artifact;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,6 +97,17 @@ public class FindArtistActivity extends AppCompatActivity {
                 viewHolder.setFullname(model.getFullname());
                 viewHolder.setStatus(model.getStatus());
                 viewHolder.setProfileimage(model.getProfileimage());
+
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String visit_user_id = getRef(i).getKey();
+
+                        Intent profileIntent = new Intent(FindArtistActivity.this, PersonProfileActivity.class);
+                        profileIntent.putExtra("visit_user_id", visit_user_id);
+                        startActivity(profileIntent);
+                    }
+                });
             }
         };
         adapter.startListening();
