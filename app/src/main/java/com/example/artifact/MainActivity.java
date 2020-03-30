@@ -287,6 +287,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(profileActivityIntent);
     }
 
+    private void SendUserToConnectionActivity() {
+
+        Intent profileActivityIntent = new Intent(MainActivity.this, FriendsActivity.class);
+        startActivity(profileActivityIntent);
+    }
+
 
     //    Navigation Bar
     @Override
@@ -314,6 +320,10 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.nav_home:
                 Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.nav_connection:
+                SendUserToConnectionActivity();
                 break;
 
             case R.id.nav_settings:
