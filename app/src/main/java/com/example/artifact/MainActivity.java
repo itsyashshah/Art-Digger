@@ -30,6 +30,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView postList;
     private Toolbar mToolbar;
     private FirebaseAuth mAuth; //firebase authentication
-    private DatabaseReference UsersRef, PostsRef;
+    private DatabaseReference UsersRef, PostsRef, LikesRef;
 
     private CircleImageView NavProfileImage;
     private TextView NavProfileName;
@@ -60,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
         PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
+        LikesRef = FirebaseDatabase.getInstance().getReference().child("Likes");
         CurrentUserID = mAuth.getCurrentUser().getUid();
-
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -146,7 +147,9 @@ public class MainActivity extends AppCompatActivity {
      }
 
     private void DisplayAllUserPost() {
-        FirebaseRecyclerOptions<Posts> options=new FirebaseRecyclerOptions.Builder<Posts>().setQuery(PostsRef,Posts.class).build();
+
+        Query SortPostDescending = PostsRef.orderByChild("counter");
+        FirebaseRecyclerOptions<Posts> options=new FirebaseRecyclerOptions.Builder<Posts>().setQuery(SortPostDescending,Posts.class).build();
         FirebaseRecyclerAdapter<Posts, PostsViewHolder> firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Posts, PostsViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull PostsViewHolder holder, int position, @NonNull Posts model) {
@@ -165,17 +168,25 @@ public class MainActivity extends AppCompatActivity {
                 View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.all_post_layout,parent,false);
                 PostsViewHolder viewHolder=new PostsViewHolder(view);
                 return viewHolder;
+
             }
+
         };
         postList.setAdapter(firebaseRecyclerAdapter);
         firebaseRecyclerAdapter.startListening();
     }
     public static class PostsViewHolder extends RecyclerView.ViewHolder{
+
+        View mView;
         TextView username,date,time,description;
         CircleImageView user_post_image;
         ImageView postImage;
+
+        ImageButton LikepostButton;
+        TextView DisplayNoofLikes;
         public PostsViewHolder(View itemView) {
             super(itemView);
+            mView = itemView;
 
             username=itemView.findViewById(R.id.post_user_name);
             date=itemView.findViewById(R.id.post_date);
@@ -183,6 +194,9 @@ public class MainActivity extends AppCompatActivity {
             description=itemView.findViewById(R.id.post_description);
             postImage=itemView.findViewById(R.id.post_image);
             user_post_image=itemView.findViewById(R.id.post_profile_image);
+
+            LikepostButton = (ImageButton) mView.findViewById(R.id.like_image_button);
+            DisplayNoofLikes = (TextView) mView.findViewById(R.id.display_likes);
         }
 
     }
@@ -267,8 +281,20 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    private void SendUserToFindArtistActivity() {
 
-//    Navigation Bar
+        Intent profileActivityIntent = new Intent(MainActivity.this, FindArtistActivity.class);
+        startActivity(profileActivityIntent);
+    }
+
+    private void SendUserToConnectionActivity() {
+
+        Intent profileActivityIntent = new Intent(MainActivity.this, FriendsActivity.class);
+        startActivity(profileActivityIntent);
+    }
+
+
+    //    Navigation Bar
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item)
     {
@@ -296,10 +322,21 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Home", Toast.LENGTH_SHORT).show();
                 break;
 
+            case R.id.nav_connection:
+                SendUserToConnectionActivity();
+                break;
+
+            case R.id.nav_messages:
+                SendUserToConnectionActivity();
+                break;
+
             case R.id.nav_settings:
                 SendUserToSettingsActivity();
                 break;
 
+            case R.id.nav_find_artist:
+                SendUserToFindArtistActivity();
+                break;
 
             case R.id.nav_logout:
                 mAuth.signOut();

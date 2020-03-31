@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -62,8 +63,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         mToolbar = (Toolbar) findViewById(R.id.settings_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Account Settings");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Settings");
 
         currentUserID = mAuth.getCurrentUser().getUid();
         SettingsuserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
@@ -136,7 +139,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == Gallery_Pick && resultCode == RESULT_OK && data != null) {
             Uri ImageUri = data.getData();
@@ -197,6 +199,9 @@ public class SettingsActivity extends AppCompatActivity {
                 });
             }
         }
+
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
 
@@ -280,11 +285,17 @@ public class SettingsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        startActivity(new Intent(SettingsActivity.this, MainActivity.class));
+        finish();
+    }
+
     private void SendUserToMainActivity() {
 
         Intent mainIntent = new Intent(SettingsActivity.this, MainActivity.class);
         startActivity(mainIntent);
-        finish();
     }
 
 }
