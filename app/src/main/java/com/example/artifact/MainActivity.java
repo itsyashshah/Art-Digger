@@ -326,6 +326,10 @@ public class MainActivity extends AppCompatActivity {
                 SendUserToConnectionActivity();
                 break;
 
+            case R.id.nav_messages:
+                SendUserToConnectionActivity();
+                break;
+
             case R.id.nav_settings:
                 SendUserToSettingsActivity();
                 break;

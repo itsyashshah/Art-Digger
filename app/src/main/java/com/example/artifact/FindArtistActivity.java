@@ -71,7 +71,7 @@ public class FindArtistActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Searching..", Toast.LENGTH_LONG).show();
 
-        Query searchPeopleAndFriendsQuery = allUsersDatabaseRef.orderByChild("status")
+        Query searchPeopleAndFriendsQuery = allUsersDatabaseRef.orderByChild("fullname")
                 .startAt(searchboxinput).endAt(searchboxinput + "\uf8ff");
 
         FirebaseRecyclerOptions<FindArtist> options =
