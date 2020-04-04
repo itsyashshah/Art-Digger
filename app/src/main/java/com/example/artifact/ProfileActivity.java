@@ -7,6 +7,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,10 +30,12 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView userProfileImage;
 
 
-    private DatabaseReference profileUserRef;
+    private DatabaseReference profileUserRef, FriendsRef, PostRef;
     private FirebaseAuth mAuth;
+    private Button MyPosts, Myfriends;
 
     private String userId;
+    private int countfriends=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +50,53 @@ public class ProfileActivity extends AppCompatActivity {
         userGender = (TextView) findViewById(R.id.user_gender);
         userDob = (TextView) findViewById(R.id.user_dob);
         userProfileImage = (CircleImageView) findViewById(R.id.profile_image);
+        Myfriends = (Button) findViewById(R.id.my_friends_button);
+        MyPosts = (Button) findViewById(R.id.my_post_button);
+
+
+        Myfriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                SendUserToConnectionActivity();
+
+            }
+        });
+
+        MyPosts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendUserToMyPostActivity();
+
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
         profileUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+
+        FriendsRef = FirebaseDatabase.getInstance().getReference().child("Friends");
+
+        FriendsRef.child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists())
+                {
+                    countfriends = (int) dataSnapshot.getChildrenCount();
+                    Myfriends.setText(Integer.toString(countfriends) + "  Friends");
+
+                }
+                else
+                {
+                    Myfriends.setText("0 Friends");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
         profileUserRef.addValueEventListener(new ValueEventListener() {
@@ -105,7 +152,18 @@ public class ProfileActivity extends AppCompatActivity {
 
         Intent mainIntent = new Intent(ProfileActivity.this, MainActivity.class);
         startActivity(mainIntent);
-        finish();
+    }
+
+    private void SendUserToConnectionActivity() {
+
+        Intent profileActivityIntent = new Intent(ProfileActivity.this, FriendsActivity.class);
+        startActivity(profileActivityIntent);
+    }
+
+    private void SendUserToMyPostActivity() {
+
+        Intent profileActivityIntent = new Intent(ProfileActivity.this, MyPostsActivity.class);
+        startActivity(profileActivityIntent);
     }
 
 
