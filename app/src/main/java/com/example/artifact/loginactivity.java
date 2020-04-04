@@ -236,7 +236,6 @@ public class loginactivity extends AppCompatActivity {
                                 Log.d("Login Error", message);
                                 loadingBar.dismiss();
 
-
                             }
                         }
                     });
