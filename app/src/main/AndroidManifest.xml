@@ -15,11 +15,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".MyPostsActivity"></activity>
+        <activity android:name=".MyPostsActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".ChatActivity"
             android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity android:name=".FriendsActivity" />
         <activity android:name=".PersonProfileActivity" />
         <activity

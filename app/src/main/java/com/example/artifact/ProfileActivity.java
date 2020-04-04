@@ -35,7 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Button MyPosts, Myfriends;
 
     private String userId;
-    private int countfriends=0;
+    private int countfriends=0, countposts=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +76,30 @@ public class ProfileActivity extends AppCompatActivity {
         profileUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
 
         FriendsRef = FirebaseDatabase.getInstance().getReference().child("Friends");
+
+        PostRef = FirebaseDatabase.getInstance().getReference().child("Posts");
+
+        PostRef.orderByChild("uid").startAt(userId).endAt(userId + "\uf8ff")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists())
+                        {
+                            countposts = (int) dataSnapshot.getChildrenCount();
+                            MyPosts.setText(Integer.toString(countposts) + "   Posts");
+                        }
+                        else
+                        {
+                            MyPosts.setText("0 Posts");
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
 
         FriendsRef.child(userId).addValueEventListener(new ValueEventListener() {
             @Override
