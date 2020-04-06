@@ -29,9 +29,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="262dp"
         android:ems="10"
-
         android:hint="E-mail"
-        android:inputType="textEmailAddress"
         android:textColorHint="@color/colorPrimaryDark"
         app:boxStrokeColor="@color/colorProfile"
         app:errorEnabled="true"
@@ -40,6 +38,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/login_email"
+            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -56,6 +55,7 @@
         android:layout_marginStart="3dp"
         android:layout_marginTop="113dp"
         android:layout_marginEnd="0dp"
+        app:passwordToggleEnabled="true"
         android:hint="Password"
         android:textColorHint="@color/colorPrimaryDark"
         app:boxStrokeColor="@color/colorProfile"

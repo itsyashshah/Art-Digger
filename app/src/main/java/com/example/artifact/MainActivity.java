@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CircleImageView NavProfileImage;
     private TextView NavProfileName;
-    private ImageButton AddNewPostButton;
+    private FloatingActionButton AddNewPostButton;
 
     String CurrentUserID;
 
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         postList.setLayoutManager(linearLayoutManager);
 
 
-        AddNewPostButton = (ImageButton) findViewById(R.id.post_button);
+        AddNewPostButton = (FloatingActionButton) findViewById(R.id.floating_action_button);
         actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();

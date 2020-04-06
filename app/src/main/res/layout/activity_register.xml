@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AFEEEE"
+    android:background="@color/themebackgroud"
     tools:context=".RegisterActivity">
 
     <ImageView
@@ -17,53 +17,88 @@
         android:layout_marginTop="44dp"
         app:srcCompat="@drawable/logo" />
 
-    <EditText
-        android:id="@+id/register_email"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/register_email_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/login_register"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:background="@drawable/inputs"
-        android:drawableLeft="@drawable/email"
         android:ems="10"
         android:hint="E-mail"
-        android:inputType="textEmailAddress"
-        android:padding="10dp" />
+        android:textColorHint="@color/colorPrimaryDark"
+        app:boxStrokeColor="@color/colorProfile"
+        app:errorEnabled="true"
+        app:helperTextEnabled="true"
+        app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Light.Hint">
 
-    <EditText
-        android:id="@+id/register_password"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/register_email_edittext"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/register_password_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/register_email"
+        android:layout_below="@+id/register_email_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:ems="10"
+        app:passwordToggleEnabled="true"
         android:hint="Password"
-        android:inputType="textPassword"
-        android:background="@drawable/inputs"
-        android:padding="10dp"
-        android:drawableLeft="@drawable/password"/>
+        android:textColorHint="@color/colorPrimaryDark"
+        app:boxStrokeColor="@color/colorProfile"
+        app:errorEnabled="true"
+        app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Light.Hint">
 
-    <EditText
-        android:id="@+id/register_confirm_password"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/register_password_edittext"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/register_confirm_password_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/register_password"
+        android:layout_below="@+id/register_password_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:ems="10"
+        app:passwordToggleEnabled="true"
         android:hint="Confirm Password"
-        android:inputType="textPassword"
-        android:background="@drawable/inputs"
-        android:padding="10dp"
-        android:drawableLeft="@drawable/password"/>
+        android:textColorHint="@color/colorPrimaryDark"
+        app:boxStrokeColor="@color/colorProfile"
+        app:errorEnabled="true"
+        app:hintTextAppearance="@style/TextAppearence.TextInputLayout.Light.Hint">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/register_confirm_password_edittext"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/register_button"
         android:layout_width="370dp"
         android:layout_height="45dp"
-        android:layout_below="@id/register_confirm_password"
+        android:layout_below="@id/register_confirm_password_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="Create Account"

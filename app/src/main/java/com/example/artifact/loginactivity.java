@@ -205,12 +205,10 @@ public class loginactivity extends AppCompatActivity {
         if(TextUtils.isEmpty(email))
         {
             emaillayout.setError("Please Enter Your Email");
-            UserEmail.setError("Required");
         }
         else if(TextUtils.isEmpty(password))
         {
             passwordlayout.setError("Please Enter Your Password");
-            UserPassword.setError("Required");
         }
         else
         {

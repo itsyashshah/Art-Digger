@@ -14,13 +14,16 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText UserEmail, UserPassword, UserConfirmPassword;
+    private TextInputEditText UserEmail, UserPassword, UserConfirmPassword;
+    private TextInputLayout useremaillayout,userpasswordlayout, userconfirmpasswordlayout;
     private Button CreateAccountButton;
     private ProgressDialog loadingbar;
     private FirebaseAuth mAuth;
@@ -34,9 +37,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        UserEmail = (EditText) findViewById(R.id.register_email);
-        UserPassword = (EditText) findViewById(R.id.register_password);
-        UserConfirmPassword = (EditText) findViewById(R.id.register_confirm_password);
+        UserEmail = (TextInputEditText) findViewById(R.id.register_email_edittext);
+        useremaillayout = (TextInputLayout) findViewById(R.id.register_email_layout);
+        UserPassword = (TextInputEditText) findViewById(R.id.register_password_edittext);
+        userpasswordlayout = (TextInputLayout) findViewById(R.id.register_password_layout);
+        UserConfirmPassword = (TextInputEditText) findViewById(R.id.register_confirm_password_edittext);
+        userconfirmpasswordlayout = (TextInputLayout) findViewById(R.id.register_confirm_password_layout);
         CreateAccountButton = (Button) findViewById(R.id.register_button);
         loadingbar = new ProgressDialog(this);
 
@@ -73,21 +79,20 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(TextUtils.isEmpty(email))
         {
-            Toast.makeText(this,"Please Write Your Email", Toast.LENGTH_SHORT).show();
+            useremaillayout.setError("Email Required");
         }
         else if(TextUtils.isEmpty(password))
         {
-            Toast.makeText(this,"Please Write Your Password", Toast.LENGTH_SHORT).show();
+            userpasswordlayout.setError("Password Required");
         }
         else  if(TextUtils.isEmpty(confirmPassword))
         {
-            Toast.makeText(this,"Please Confirm Your Password", Toast.LENGTH_SHORT).show();
+            userconfirmpasswordlayout.setError("Confirm Password Required ");
         }
 
         else if (!password.equals(confirmPassword))
         {
-            Toast.makeText(this,"Your Password does not match with Confirm Password", Toast.LENGTH_SHORT).show();
-
+            userconfirmpasswordlayout.setError("Password Doesn't Match");
         }
         else
         {

@@ -18,6 +18,9 @@ import com.firebase.ui.auth.data.model.User;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,7 +40,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SetupActivity extends AppCompatActivity {
 
-    private EditText Username, FullName, CountryName;
+    private TextInputEditText Username, FullName, CountryName;
+    private TextInputLayout usernamelayout, fullnamelayout, countrylayout;
     private Button SaveInformationButton;
     private CircleImageView ProfileImage;
     private ProgressDialog loadingbar;
@@ -64,9 +68,12 @@ public class SetupActivity extends AppCompatActivity {
        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserID);
        UserProfileImageRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
 
-        Username = (EditText) findViewById(R.id.setup_username);
-        FullName = (EditText) findViewById(R.id.setup_fullname);
-        CountryName = (EditText) findViewById(R.id.setup_country);
+        Username = (TextInputEditText) findViewById(R.id.setup_username_edittext);
+        usernamelayout = (TextInputLayout) findViewById(R.id.setup_username_layout);
+        FullName = (TextInputEditText) findViewById(R.id.setup_fullname_edittext);
+        fullnamelayout=(TextInputLayout) findViewById(R.id.setup_fullname_layout);
+        CountryName = (TextInputEditText) findViewById(R.id.setup_country_edittext);
+        countrylayout = (TextInputLayout) findViewById(R.id.setup_country_layout);
         SaveInformationButton = (Button) findViewById(R.id.setup_save_button);
         ProfileImage = (CircleImageView) findViewById(R.id.setup_profile_image);
         loadingbar = new ProgressDialog(this);
@@ -196,18 +203,18 @@ public class SetupActivity extends AppCompatActivity {
 
         if(TextUtils.isEmpty(username))
         {
-            Toast.makeText(this, "Username cannot be empty", Toast.LENGTH_SHORT).show();
+            usernamelayout.setError("Username Required");
         }
 
 
         if(TextUtils.isEmpty(fullname))
         {
-            Toast.makeText(this, "Full name cannot be empty", Toast.LENGTH_SHORT).show();
+            fullnamelayout.setError("Full Name Required");
         }
 
         if(TextUtils.isEmpty(country))
         {
-            Toast.makeText(this, "Country cannot be empty", Toast.LENGTH_SHORT).show();
+            countrylayout.setError("Country Name Required");
         }
 
        else
@@ -232,8 +239,8 @@ public class SetupActivity extends AppCompatActivity {
                     if(task.isSuccessful())
                     {
                         SendUserToMainActivity();
-                        Toast.makeText(SetupActivity.this, "Your Account is Created Successfully", Toast.LENGTH_SHORT).show();
-                        loadingbar.dismiss();
+                        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Welcome To Artifact", Snackbar.LENGTH_LONG);
+                        snackbar.show();
 
                     }
                     else
